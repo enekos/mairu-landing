@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { animate, stagger, inView } from 'motion';
   import { Database, Network, TerminalSquare, Zap, Layers, Terminal, Search, Flame, BrainCircuit, Cpu, ArrowRight, Bot, GitMerge, Sparkles, Workflow, Hourglass, Share2 } from 'lucide-svelte';
 
@@ -23,19 +23,24 @@
 
   let canvasRef: HTMLCanvasElement | undefined;
   let animationFrame: number;
+  let cursorInterval: ReturnType<typeof setInterval>;
+  let textScrambleInterval: ReturnType<typeof setInterval>;
+  let initialTimeout: ReturnType<typeof setTimeout>;
+  let terminalTimeouts: ReturnType<typeof setTimeout>[] = [];
+  let handleResize: () => void;
 
   onMount(() => {
-    setTimeout(() => {
+    initialTimeout = setTimeout(() => {
       showTerminal = true;
     }, 1500);
 
-    setInterval(() => {
+    cursorInterval = setInterval(() => {
       cursorVisible = !cursorVisible;
     }, 500);
 
     // Text Scramble execution
     let iterations = 0;
-    const interval = setInterval(() => {
+    textScrambleInterval = setInterval(() => {
       heroTitle = heroTitle.split('').map((letter, index) => {
         if(index < iterations) return finalTitle[index];
         return chars[Math.floor(Math.random() * chars.length)];
@@ -46,7 +51,7 @@
         return chars[Math.floor(Math.random() * chars.length)];
       }).join('');
       
-      if(iterations >= Math.max(finalTitle.length, finalSubtitle.length)) clearInterval(interval);
+      if(iterations >= Math.max(finalTitle.length, finalSubtitle.length)) clearInterval(textScrambleInterval);
       iterations += 1/3;
     }, 30);
 
@@ -108,12 +113,13 @@
         };
         draw();
 
-        window.addEventListener('resize', () => {
+        handleResize = () => {
           width = window.innerWidth;
           height = window.innerHeight;
           if(canvasRef) canvasRef.width = width;
           if(canvasRef) canvasRef.height = height;
-        });
+        };
+        window.addEventListener('resize', handleResize);
       }
     }
 
@@ -157,9 +163,15 @@
         animate(element, { opacity: [0, 1], scale: [0.95, 1] }, { duration: 1 });
       });
     }
-    return () => {
-      if(animationFrame) cancelAnimationFrame(animationFrame);
-    };
+  });
+
+  onDestroy(() => {
+    if(animationFrame) cancelAnimationFrame(animationFrame);
+    if(cursorInterval) clearInterval(cursorInterval);
+    if(textScrambleInterval) clearInterval(textScrambleInterval);
+    if(initialTimeout) clearTimeout(initialTimeout);
+    terminalTimeouts.forEach(clearTimeout);
+    if(handleResize) window.removeEventListener('resize', handleResize);
   });
 
   const terminalLines = [
@@ -176,9 +188,10 @@
   let visibleLines = 0;
   $: if (showTerminal) {
     terminalLines.forEach((line, index) => {
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         visibleLines = index + 1;
       }, line.delay);
+      terminalTimeouts.push(timeout);
     });
   }
 </script>
@@ -206,13 +219,13 @@
     </div>
     
     <div class="hidden md:flex items-center gap-10 text-sm tracking-[0.15em] text-[#8c7a85] font-medium">
-      <a href="#architecture" class="hover:text-white transition-colors cursor-pointer">Architecture</a>
-      <a href="#features" class="hover:text-white transition-colors cursor-pointer">Features</a>
-      <a href="#/docs" class="text-[#ff1e56] hover:text-[#ff4a76] transition-colors cursor-pointer font-bold">Documentation</a>
+      <a href="#architecture" aria-label="Go to Architecture" class="hover:text-white transition-colors cursor-pointer">Architecture</a>
+      <a href="#features" aria-label="Go to Features" class="hover:text-white transition-colors cursor-pointer">Features</a>
+      <a href="#/docs" aria-label="Go to Documentation" class="text-[#ff1e56] hover:text-[#ff4a76] transition-colors cursor-pointer font-bold">Documentation</a>
     </div>
 
-    <a href="https://github.com/exocuted/mairu" target="_blank" class="px-6 py-2 border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all duration-300 tracking-widest text-xs uppercase flex items-center gap-2 backdrop-blur-md">
-      <TerminalSquare size={14} /> Github
+    <a href="https://github.com/enekos/mairu" aria-label="Visit Github repository" target="_blank" class="px-6 py-2 border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all duration-300 tracking-widest text-xs uppercase flex items-center gap-2 backdrop-blur-md">
+      <TerminalSquare size={14} aria-hidden="true" /> Github
     </a>
   </nav>
 
@@ -223,7 +236,7 @@
       <!-- Left Text -->
       <div class="flex-1 space-y-8" bind:this={textRef}>
         <div class="inline-flex items-center gap-3 px-4 py-1.5 border border-[#ff1e56]/30 rounded-full bg-[#ff1e56]/5 text-[#ff1e56] text-xs font-bold tracking-widest uppercase">
-          <Flame size={12} class="animate-pulse" /> The Awakening
+          <Flame size={12} class="animate-pulse" aria-hidden="true" /> The Awakening
         </div>
         
         <h1 class="text-6xl md:text-7xl lg:text-[6rem] font-serif leading-[0.95] text-white">
@@ -236,11 +249,11 @@
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 pt-6">
-          <a href="#/docs" class="relative overflow-hidden px-8 py-4 bg-[#ff1e56] text-white rounded-full font-bold tracking-widest text-sm transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,30,86,0.5)] flex items-center justify-center gap-2 group cursor-pointer border border-[#ff1e56]">
-            <span class="relative z-10 flex items-center gap-2">READ THE DOCS <ArrowRight size={16} class="group-hover:translate-x-1 transition-transform" /></span>
+          <a href="#/docs" aria-label="Read the documentation" class="relative overflow-hidden px-8 py-4 bg-[#ff1e56] text-white rounded-full font-bold tracking-widest text-sm transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,30,86,0.5)] flex items-center justify-center gap-2 group cursor-pointer border border-[#ff1e56]">
+            <span class="relative z-10 flex items-center gap-2">READ THE DOCS <ArrowRight size={16} class="group-hover:translate-x-1 transition-transform" aria-hidden="true" /></span>
           </a>
-          <div class="px-8 py-4 border border-white/10 rounded-full text-[#8c7a85] tracking-widest text-sm flex items-center justify-center gap-2 bg-black/20 backdrop-blur-md font-mono">
-            <span class="text-[#ff1e56]">$</span> clone exocuted/mairu
+          <div class="px-8 py-4 border border-white/10 rounded-full text-[#8c7a85] tracking-widest text-sm flex items-center justify-center gap-2 bg-black/20 backdrop-blur-md font-mono select-all">
+            <span class="text-[#ff1e56] select-none">$</span> clone enekos/mairu
           </div>
         </div>
       </div>

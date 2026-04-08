@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
-  import { Database, Terminal, BookOpen, Layers, Network, Search, Zap, Flame, Braces, ArrowLeft, TerminalSquare, Hourglass, Settings, Command, Binary, Server, Workflow, Waypoints } from 'lucide-svelte';
+  import { fade, slide } from 'svelte/transition';
+  import { Database, Terminal, BookOpen, Layers, Network, Search, Zap, Flame, Braces, ArrowLeft, TerminalSquare, Hourglass, Settings, Command, Binary, Server, Workflow, Waypoints, Menu, X } from 'lucide-svelte';
   import { onMount } from 'svelte';
 
   let activeSection = 'getting-started';
+  let isMobileMenuOpen = false;
 
   const sections = [
     { id: 'getting-started', title: 'Getting Started', icon: TerminalSquare },
@@ -21,6 +22,7 @@
 
   function scrollToSection(id: string) {
     activeSection = id;
+    isMobileMenuOpen = false;
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -48,23 +50,55 @@
 <div class="min-h-screen bg-[#060205] text-[#e6e0d8] font-sans flex flex-col selection:bg-[#ff1e56] selection:text-white">
   
   <!-- Navigation -->
-  <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-8 py-4 bg-[#060205]/60 backdrop-blur-xl border-b border-white/5">
-    <div class="flex items-center gap-6">
-      <a href="#/" class="text-[#8c7a85] hover:text-[#ff1e56] transition-colors flex items-center gap-2 text-xs tracking-widest uppercase font-mono group">
-        <ArrowLeft size={16} class="group-hover:-translate-x-1 transition-transform" /> Return
+  <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-8 py-4 bg-[#060205]/60 backdrop-blur-xl border-b border-white/5">
+    <div class="flex items-center gap-4 md:gap-6">
+      <button class="md:hidden text-[#8c7a85] hover:text-white" on:click={() => isMobileMenuOpen = !isMobileMenuOpen} aria-label="Toggle Menu">
+        {#if isMobileMenuOpen}
+          <X size={24} />
+        {:else}
+          <Menu size={24} />
+        {/if}
+      </button>
+      <a href="#/" aria-label="Return to Home" class="hidden md:flex text-[#8c7a85] hover:text-[#ff1e56] transition-colors items-center gap-2 text-xs tracking-widest uppercase font-mono group">
+        <ArrowLeft size={16} class="group-hover:-translate-x-1 transition-transform" aria-hidden="true" /> Return
       </a>
-      <div class="w-[1px] h-6 bg-white/10"></div>
+      <div class="hidden md:block w-[1px] h-6 bg-white/10"></div>
       <div class="flex items-center gap-3">
-        <Database class="text-[#ff1e56] fever-warp glitch-hover" size={20} />
+        <Database class="text-[#ff1e56] fever-warp glitch-hover" size={20} aria-hidden="true" />
         <span class="text-xl font-bold tracking-widest text-white font-serif uppercase glitch-hover">
-          MAIRU <span class="text-[#ff1e56] italic lowercase text-sm font-mono ml-2">docs</span>
+          MAIRU <span class="text-[#ff1e56] italic lowercase text-sm font-mono ml-2 hidden sm:inline">docs</span>
         </span>
       </div>
     </div>
-    <a href="https://github.com/exocuted/mairu" target="_blank" class="text-xs text-[#8c7a85] hover:text-white tracking-widest uppercase border border-white/10 px-4 py-1.5 rounded-full transition-colors hover:border-[#ff1e56]">
-      GitHub
-    </a>
+    <div class="flex items-center gap-4">
+      <a href="#/" aria-label="Return to Home" class="md:hidden text-xs text-[#8c7a85] hover:text-white tracking-widest uppercase font-mono">
+        Home
+      </a>
+      <a href="https://github.com/enekos/mairu" aria-label="Visit Github repository" target="_blank" class="text-xs text-[#8c7a85] hover:text-white tracking-widest uppercase border border-white/10 px-4 py-1.5 rounded-full transition-colors hover:border-[#ff1e56]">
+        GitHub
+      </a>
+    </div>
   </nav>
+
+  {#if isMobileMenuOpen}
+    <div class="fixed inset-0 top-[73px] bg-[#0a030b] z-40 md:hidden overflow-y-auto" transition:slide={{ duration: 300 }}>
+      <div class="p-6">
+        <div class="text-[10px] text-[#8c7a85] font-bold tracking-[0.2em] uppercase mb-6 font-mono">Contents</div>
+        <nav class="space-y-1">
+          {#each sections as section}
+            <button 
+              on:click={() => scrollToSection(section.id)}
+              aria-current={activeSection === section.id ? 'true' : undefined}
+              class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-all border {activeSection === section.id ? 'bg-[#ff1e56]/10 text-white border-[#ff1e56]/30 font-medium' : 'text-[#8c7a85] border-transparent hover:bg-white/5 hover:text-white'}"
+            >
+              <svelte:component this={section.icon} size={16} aria-hidden="true" class={activeSection === section.id ? 'text-[#ff1e56] fever-warp' : 'text-[#8c7a85]'} />
+              <span class={activeSection === section.id ? 'glitch-hover' : ''}>{section.title}</span>
+            </button>
+          {/each}
+        </nav>
+      </div>
+    </div>
+  {/if}
 
   <div class="flex flex-1 pt-[73px]">
     
@@ -76,9 +110,10 @@
           {#each sections as section}
             <button 
               on:click={() => scrollToSection(section.id)}
+              aria-current={activeSection === section.id ? 'true' : undefined}
               class="w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-all border {activeSection === section.id ? 'bg-[#ff1e56]/10 text-white border-[#ff1e56]/30 font-medium' : 'text-[#8c7a85] border-transparent hover:bg-white/5 hover:text-white'}"
             >
-              <svelte:component this={section.icon} size={16} class={activeSection === section.id ? 'text-[#ff1e56] fever-warp' : 'text-[#8c7a85]'} />
+              <svelte:component this={section.icon} size={16} aria-hidden="true" class={activeSection === section.id ? 'text-[#ff1e56] fever-warp' : 'text-[#8c7a85]'} />
               <span class={activeSection === section.id ? 'glitch-hover' : ''}>{section.title}</span>
             </button>
           {/each}
@@ -115,16 +150,17 @@
             <div class="grid md:grid-cols-2 gap-6">
               <div class="bg-[#0a030b] border border-white/5 rounded-xl p-6 shadow-lg relative overflow-hidden group">
                 <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <h3 class="text-white font-medium mb-4 text-sm font-mono relative z-10">1. Dependencies</h3>
-                <pre class="text-[#ff1e56] text-xs font-mono overflow-x-auto relative z-10"><code>$ docker compose up -d    # start Meilisearch
-$ cp .env.example .env    # configure env
-$ make setup              # create Meilisearch indexes</code></pre>
+                <h3 class="text-white font-medium mb-4 text-sm font-mono relative z-10">1. Setup & Init</h3>
+                <pre class="text-[#ff1e56] text-xs font-mono overflow-x-auto relative z-10"><code>$ ./bootstrap.sh          # fetch meilisearch (no docker)
+$ make build              # compile mairu-agent
+$ ./mairu/bin/mairu-agent setup     # setup indexes
+$ ./mairu/bin/mairu-agent init      # init project config</code></pre>
               </div>
 
               <div class="bg-[#0a030b] border border-white/5 rounded-xl p-6 shadow-lg relative overflow-hidden group">
                 <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <h3 class="text-white font-medium mb-4 text-sm font-mono relative z-10">2. Build & Run</h3>
-                <pre class="text-[#ff1e56] text-xs font-mono overflow-x-auto relative z-10"><code>$ make build
+                <h3 class="text-white font-medium mb-4 text-sm font-mono relative z-10">2. Configure & Run</h3>
+                <pre class="text-[#ff1e56] text-xs font-mono overflow-x-auto relative z-10"><code>$ ./mairu/bin/mairu-agent config set api.gemini_api_key "your-key"
 $ ./mairu/bin/mairu-agent context-server -p 8788
 # App running at localhost:8788</code></pre>
               </div>
@@ -138,28 +174,39 @@ $ ./mairu/bin/mairu-agent context-server -p 8788
             </h2>
             
             <p class="mb-8 leading-relaxed text-[#e6e0d8] font-light">
-              Mairu requires both global environment variables for the Meilisearch database connection and project-specific configurations for isolation.
+              Mairu uses a five-tier TOML configuration cascade instead of rigid environment variables, allowing for global defaults and project-specific overrides.
             </p>
 
             <div class="bg-[#110515] border border-white/5 rounded-xl p-8 mb-6 shadow-lg relative overflow-hidden group">
               <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <h3 class="text-xl font-serif text-white mb-4 relative z-10">Global Environment (.env)</h3>
-              <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">These variables must be accessible to the <code class="text-white">mairu-agent</code> binary.</p>
-              <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10"><code><span class="text-[#ff1e56]">MEILI_URL</span>=http://localhost:7700
-<span class="text-[#ff1e56]">MEILI_MASTER_KEY</span>=your_master_key
-<span class="text-[#ff1e56]">GEMINI_API_KEY</span>=AIzaSy...</code></pre>
+              <h3 class="text-xl font-serif text-white mb-4 relative z-10">The Configuration Cascade</h3>
+              <ul class="text-[#8c7a85] text-sm font-light mb-4 relative z-10 list-decimal list-inside space-y-2">
+                <li><strong class="text-white">Hardcoded defaults:</strong> Sane fallbacks for Meilisearch and concurrency.</li>
+                <li><strong class="text-white">User config:</strong> <code class="bg-black/50 px-1 rounded font-mono">~/.config/mairu/config.toml</code></li>
+                <li><strong class="text-white">Project config:</strong> <code class="bg-black/50 px-1 rounded font-mono">.mairu.toml</code> in project root.</li>
+                <li><strong class="text-white">Environment variables:</strong> <code class="bg-black/50 px-1 rounded font-mono">MAIRU_</code> prefix (e.g. <code class="bg-black/50 px-1 rounded font-mono">MAIRU_API_GEMINI_API_KEY</code>).</li>
+                <li><strong class="text-white">CLI flags:</strong> Highest priority.</li>
+              </ul>
+              <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10 mt-4"><code><span class="text-[#8c7a85]"># View your current resolved config cascade</span>
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu-agent config list
+
+<span class="text-[#8c7a85]"># Set global values easily</span>
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu-agent config set api.gemini_api_key "your-key"
+
+<span class="text-[#8c7a85]"># Check system health and missing dependencies</span>
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu-agent doctor</code></pre>
             </div>
 
             <div class="bg-[#0a030b] border border-white/5 rounded-xl p-8 shadow-lg relative overflow-hidden">
               <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-[#3b00ff]/10 rounded-full blur-[40px] pointer-events-none"></div>
-              <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover w-max">Project Isolation (.mairu)</h3>
+              <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover w-max">Project Isolation (.mairu.toml)</h3>
               <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">
                 While Meilisearch holds all data globally, Mairu isolates contexts using the <code class="text-white">-P &lt;project&gt;</code> flag. 
-                Locally, the AST daemon stores its structural hash-cache in a <code class="text-white">.mairu/</code> folder at the root of your project to prevent unnecessary re-parsing.
+                You can drop a <code class="text-white">.mairu.toml</code> in your project root using <code class="text-white">mairu-agent init</code> to override settings like output formats.
               </p>
               <div class="bg-[#3b00ff]/5 border border-[#3b00ff]/20 rounded p-4 flex gap-3 relative z-10">
                 <Binary class="text-[#3b00ff] shrink-0" />
-                <p class="text-xs text-[#e6e0d8] font-light">Make sure to add <code class="text-white font-mono bg-white/10 px-1 rounded">.mairu</code> to your <code class="text-white font-mono bg-white/10 px-1 rounded">.gitignore</code> file.</p>
+                <p class="text-xs text-[#e6e0d8] font-light">Make sure to add <code class="text-white font-mono bg-white/10 px-1 rounded">.mairu</code> and <code class="text-white font-mono bg-white/10 px-1 rounded">.mairu.toml</code> to your <code class="text-white font-mono bg-white/10 px-1 rounded">.gitignore</code> file.</p>
               </div>
             </div>
           </section>
@@ -506,6 +553,18 @@ $ mairu-agent node search "authentication architecture" -k 5 -P my-project</code
                 </p>
                 <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto"><code><span class="text-[#8c7a85]"># Ingest a markdown file and attach it to a specific URI</span>
 <span class="text-[#ff1e56]">></span> mairu-agent ingest external_api_spec.md --base-uri "contextfs://vendor/api" -P my-project -y</code></pre>
+              </div>
+
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-white/20 transition-colors">
+                <h3 class="text-xl font-serif text-white mb-4">Output Formatting for Scripts</h3>
+                <p class="text-[#8c7a85] text-sm font-light mb-4">
+                  CLI outputs are structured natively for both human readability and script automation. You can output search and list commands in different formats.
+                </p>
+                <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto"><code><span class="text-[#8c7a85]"># Output search results as strict JSON for a script</span>
+<span class="text-[#ff1e56]">></span> mairu-agent memory search "api keys" -o json -P my-project
+
+<span class="text-[#8c7a85]"># Output plain text (no colors/tables)</span>
+<span class="text-[#ff1e56]">></span> mairu-agent memory search "api keys" -o plain -P my-project</code></pre>
               </div>
 
             </div>
