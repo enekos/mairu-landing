@@ -350,7 +350,7 @@
         <div class="feature-card bg-[#110515] border border-white/5 p-10 rounded-2xl hover:border-[#ff1e56]/30 transition-all duration-500 group relative overflow-hidden">
           <div class="absolute inset-0 bg-[#ff1e56]/5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
           <Search class="text-[#ff1e56] mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
-          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover w-max">Hybrid Retrieval</h3>
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Hybrid Retrieval</h3>
           <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
             Vector cosine similarity fused with full-text Meilisearch. App-side re-ranking applies exponential recency decay and importance boosting.
           </p>
@@ -359,7 +359,7 @@
         <div class="feature-card bg-[#110515] border border-white/5 p-10 rounded-2xl hover:border-[#3b00ff]/30 transition-all duration-500 group relative overflow-hidden">
           <div class="absolute inset-0 bg-[#3b00ff]/5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
           <Layers class="text-[#3b00ff] mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
-          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover w-max">AST Daemon</h3>
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">AST Daemon</h3>
           <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
             Silent background watcher extracting full symbol graphs and translating code logic into Natural Language without expensive LLM calls.
           </p>
@@ -368,7 +368,7 @@
         <div class="feature-card bg-[#110515] border border-white/5 p-10 rounded-2xl hover:border-white/30 transition-all duration-500 group relative overflow-hidden">
           <div class="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
           <Network class="text-white mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
-          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover w-max">Context Trees</h3>
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Context Trees</h3>
           <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
             Hierarchical knowledge trees linking disparate files, symbols, and architecture notes into a unified, navigable graph of the project.
           </p>
@@ -377,7 +377,7 @@
         <div class="feature-card bg-[#110515] border border-[#ff1e56]/20 p-10 rounded-2xl hover:border-[#ff1e56] transition-all duration-500 group shadow-[0_0_20px_rgba(255,30,86,0.05)] hover:shadow-[0_0_40px_rgba(255,30,86,0.15)] relative overflow-hidden">
           <div class="absolute inset-0 bg-gradient-to-tr from-[#ff1e56]/10 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
           <Zap class="text-[#ff1e56] mb-6 group-hover:-translate-y-2 transition-transform duration-500 fever-warp relative z-10" size={36} />
-          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover w-max">Vibe Mutations</h3>
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Vibe Mutations</h3>
           <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
             Tell Mairu what to remember in natural language. The agent automatically orchestrates search, planning, and memory forging.
           </p>
@@ -386,7 +386,7 @@
         <div class="feature-card bg-[#110515] border border-white/5 p-10 rounded-2xl hover:border-[#3b00ff]/30 transition-all duration-500 group relative overflow-hidden">
           <div class="absolute inset-0 bg-[#3b00ff]/5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
           <Hourglass class="text-[#3b00ff] mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
-          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover w-max">Biological Decay</h3>
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Biological Decay</h3>
           <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
             Memories are not static. Unused vectors decay in relevance over time through exponential half-life algorithms, keeping the active context hyper-focused.
           </p>
@@ -395,7 +395,7 @@
         <div class="feature-card bg-[#110515] border border-white/5 p-10 rounded-2xl hover:border-white/30 transition-all duration-500 group relative overflow-hidden">
           <div class="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
           <Share2 class="text-white mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
-          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover w-max">Native Agent & Hive Mind</h3>
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Native Agent & Hive Mind</h3>
           <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
             Run Mairu as a standalone autonomous coding agent, or sync Aider, Claude, and Opencode simultaneously against its central Meilisearch knowledge graph.
           </p>
@@ -426,7 +426,7 @@
         <div class="cap-card bg-[#110515] border border-white/5 p-10 rounded-2xl relative overflow-hidden group hover:border-[#ff1e56]/30 transition-all duration-500">
           <div class="absolute inset-0 bg-gradient-to-b from-[#ff1e56]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <GitMerge class="text-[#ff1e56] mb-6 relative z-10" size={32} />
-          <h3 class="text-xl font-serif text-white mb-4 glitch-hover w-max relative z-10">Semantic Deduplication</h3>
+          <h3 class="text-xl font-serif text-white mb-4 glitch-hover inline-block max-w-full relative z-10">Semantic Deduplication</h3>
           <p class="text-[#8c7a85] font-light leading-relaxed mb-6 relative z-10 group-hover:text-white/80 transition-colors">
             When an agent stores a new vibe-mutation, Mairu intercepts it. An internal LLM evaluates the vector similarity of existing facts to autonomously <code class="text-white bg-white/10 px-1 rounded text-xs font-mono">CREATE</code>, <code class="text-[#3b00ff] bg-white/10 px-1 rounded text-xs font-mono">UPDATE</code>, or <code class="text-[#ff1e56] bg-white/10 px-1 rounded text-xs font-mono">SKIP</code>, preventing context window bloat.
           </p>
@@ -441,7 +441,7 @@
         <div class="cap-card bg-[#110515] border border-white/5 p-10 rounded-2xl relative overflow-hidden group hover:border-[#3b00ff]/30 transition-all duration-500">
           <div class="absolute inset-0 bg-gradient-to-b from-[#3b00ff]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <Sparkles class="text-[#3b00ff] mb-6 relative z-10" size={32} />
-          <h3 class="text-xl font-serif text-white mb-4 glitch-hover w-max relative z-10">Contextual Self-Healing</h3>
+          <h3 class="text-xl font-serif text-white mb-4 glitch-hover inline-block max-w-full relative z-10">Contextual Self-Healing</h3>
           <p class="text-[#8c7a85] font-light leading-relaxed relative z-10 group-hover:text-white/80 transition-colors">
             Agents don't need to manually read hundreds of files to know what changed. The AST daemon silently tracks file modifications, repairs the knowledge graph, and updates the Natural Language summaries in real-time.
           </p>
@@ -451,7 +451,7 @@
         <div class="cap-card bg-[#110515] border border-white/5 p-10 rounded-2xl relative overflow-hidden group hover:border-white/30 transition-all duration-500">
           <div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <Workflow class="text-white mb-6 relative z-10" size={32} />
-          <h3 class="text-xl font-serif text-white mb-4 glitch-hover w-max relative z-10">Conceptual Traversal</h3>
+          <h3 class="text-xl font-serif text-white mb-4 glitch-hover inline-block max-w-full relative z-10">Conceptual Traversal</h3>
           <p class="text-[#8c7a85] font-light leading-relaxed relative z-10 group-hover:text-white/80 transition-colors">
             Instead of grepping noisy strings, agents traverse the project conceptually via <code class="text-white bg-white/10 px-1 rounded text-xs font-mono">contextfs://</code> URIs. This allows them to zoom out to high-level architectural nodes, or zoom in to specific AST payloads seamlessly.
           </p>

@@ -126,7 +126,7 @@
       <div in:fade={{ duration: 600, delay: 100 }}>
         
         <div class="mb-16 border-b border-white/5 pb-12 relative overflow-hidden group">
-          <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 font-serif glitch-hover w-max">
+          <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 font-serif glitch-hover inline-block max-w-full">
             The <span class="text-[#ff1e56] italic">Codex</span>
           </h1>
           <p class="text-[#8c7a85] text-lg leading-relaxed font-light relative z-10">
@@ -199,7 +199,7 @@ $ ./mairu/bin/mairu-agent context-server -p 8788
 
             <div class="bg-[#0a030b] border border-white/5 rounded-xl p-8 shadow-lg relative overflow-hidden">
               <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-[#3b00ff]/10 rounded-full blur-[40px] pointer-events-none"></div>
-              <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover w-max">Project Isolation (.mairu.toml)</h3>
+              <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Project Isolation (.mairu.toml)</h3>
               <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">
                 While Meilisearch holds all data globally, Mairu isolates contexts using the <code class="text-white">-P &lt;project&gt;</code> flag. 
                 You can drop a <code class="text-white">.mairu.toml</code> in your project root using <code class="text-white">mairu-agent init</code> to override settings like output formats.
@@ -224,7 +224,7 @@ $ ./mairu/bin/mairu-agent context-server -p 8788
             <div class="bg-[#110515] rounded-2xl border border-white/5 overflow-hidden group mb-8">
               <div class="p-8 relative">
                 <div class="absolute inset-0 bg-gradient-to-br from-[#ff1e56]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <h3 class="text-xl font-serif text-white mb-6 border-b border-white/5 pb-4 relative z-10 glitch-hover w-max">Vector & Text Document Schema</h3>
+                <h3 class="text-xl font-serif text-white mb-6 border-b border-white/5 pb-4 relative z-10 glitch-hover inline-block max-w-full">Vector & Text Document Schema</h3>
                 <p class="text-[#8c7a85] text-sm font-light mb-6 relative z-10">Every artifact (Memory, Skill, Node) is serialized into this JSON schema before being indexed into Meilisearch. The <code class="text-white">_vectors</code> field is critical for semantic retrieval.</p>
                 
                 <pre class="bg-black/50 p-6 rounded-xl font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10 shadow-inner"><code>{`
@@ -295,20 +295,20 @@ $ ./mairu/bin/mairu-agent context-server -p 8788
 
             <div class="grid lg:grid-cols-3 gap-6">
               <div class="bg-[#110515] p-6 rounded-xl border border-white/5 relative overflow-hidden group hover:border-[#ff1e56]/30 transition-colors">
-                <strong class="text-white block mb-2 font-serif text-xl glitch-hover w-max">1. Genesis</strong>
+                <strong class="text-white inline-block mb-2 font-serif text-xl glitch-hover max-w-full">1. Genesis</strong>
                 <p class="text-[#8c7a85] text-sm font-light">
                   A memory is forged via <code class="text-white">vibe-mutation</code> or <code class="text-white">memory store</code>. It is assigned an initial Importance Score (1-10) by the LLM.
                 </p>
               </div>
               <div class="bg-[#110515] p-6 rounded-xl border border-white/5 relative overflow-hidden group hover:border-white/30 transition-colors">
-                <strong class="text-white block mb-2 font-serif text-xl glitch-hover w-max">2. Reinforcement</strong>
+                <strong class="text-white inline-block mb-2 font-serif text-xl glitch-hover max-w-full">2. Reinforcement</strong>
                 <p class="text-[#8c7a85] text-sm font-light">
                   When a memory is returned in a vector search, its <code class="text-white">last_accessed</code> timestamp is updated. Frequently used memories resist decay.
                 </p>
               </div>
               <div class="bg-[#110515] p-6 rounded-xl border border-[#3b00ff]/20 relative overflow-hidden group hover:border-[#3b00ff] shadow-[0_0_20px_rgba(59,0,255,0.05)] transition-colors">
                 <div class="absolute inset-0 bg-gradient-to-br from-[#3b00ff]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <strong class="text-[#3b00ff] block mb-2 font-serif text-xl glitch-hover w-max relative z-10">3. Exponential Decay</strong>
+                <strong class="text-[#3b00ff] inline-block mb-2 font-serif text-xl glitch-hover max-w-full relative z-10">3. Exponential Decay</strong>
                 <p class="text-[#8c7a85] text-sm font-light relative z-10">
                   During retrieval, the re-ranker applies an exponential penalty based on the time elapsed since <code class="text-white">last_accessed</code>, pushing stale facts to the bottom of the context window.
                 </p>
@@ -329,7 +329,7 @@ $ ./mairu/bin/mairu-agent context-server -p 8788
             <div class="bg-[#110515] rounded-2xl border border-white/5 overflow-hidden group">
               <div class="p-8 relative">
                 <div class="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <h3 class="text-xl font-serif text-white mb-6 border-b border-white/5 pb-4 relative z-10 glitch-hover w-max">Retrieval Pipeline</h3>
+                <h3 class="text-xl font-serif text-white mb-6 border-b border-white/5 pb-4 relative z-10 glitch-hover inline-block max-w-full">Retrieval Pipeline</h3>
                 <ul class="space-y-6 relative z-10">
                   <li class="flex gap-4">
                     <span class="flex-shrink-0 w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center font-mono text-sm text-[#ff1e56]">1</span>
@@ -486,7 +486,7 @@ $ mairu-agent daemon ./src -P my-project</code></pre>
                 <div class="absolute -inset-1 bg-gradient-to-r from-white/10 to-white/0 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
                 <div class="relative bg-[#110515] border border-white/5 rounded-xl p-8 overflow-hidden">
                   <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/5 rounded-full blur-[40px] pointer-events-none group-hover:bg-white/10 transition-colors"></div>
-                  <h3 class="text-xl font-serif text-white mb-4 glitch-hover w-max">1. The Native Mairu Agent</h3>
+                  <h3 class="text-xl font-serif text-white mb-4 glitch-hover inline-block max-w-full">1. The Native Mairu Agent</h3>
                   <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">Use Mairu as your primary developer. It natively leverages the AST daemon and memory graph to autonomously write code, fix bugs, and refactor architecture without needing any CLI wrappers.</p>
                   <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#ff1e56] border border-white/5 overflow-x-auto relative z-10"><code>$ mairu-agent task "Implement a new dark mode toggle in the header" -P my-project</code></pre>
                 </div>
@@ -496,7 +496,7 @@ $ mairu-agent daemon ./src -P my-project</code></pre>
                 <div class="absolute -inset-1 bg-gradient-to-r from-[#ff1e56]/20 to-[#3b00ff]/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
                 <div class="relative bg-[#110515] border border-white/5 rounded-xl p-8 overflow-hidden">
                   <div class="absolute -right-10 -top-10 w-40 h-40 bg-[#ff1e56]/10 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#ff1e56]/20 transition-colors"></div>
-                  <h3 class="text-xl font-serif text-white mb-4 glitch-hover w-max">2. Deterministic Retrieval (Integrations)</h3>
+                  <h3 class="text-xl font-serif text-white mb-4 glitch-hover inline-block max-w-full">2. Deterministic Retrieval (Integrations)</h3>
                   <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">When using third-party agents, instruct them to proactively search memories whenever they start a new task or encounter an unknown domain using the CLI.</p>
                   <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#ff1e56] border border-white/5 overflow-x-auto relative z-10"><code>$ mairu-agent memory search "authentication token validation rules" -k 5 -P my-project
 $ mairu-agent node search "authentication architecture" -k 5 -P my-project</code></pre>
@@ -507,7 +507,7 @@ $ mairu-agent node search "authentication architecture" -k 5 -P my-project</code
                 <div class="absolute -inset-1 bg-gradient-to-r from-[#3b00ff]/20 to-white/10 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
                 <div class="relative bg-[#110515] border border-white/5 rounded-xl p-8 overflow-hidden">
                   <div class="absolute -right-10 -top-10 w-40 h-40 bg-[#3b00ff]/10 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#3b00ff]/20 transition-colors"></div>
-                  <h3 class="text-xl font-serif text-white mb-4 glitch-hover w-max">3. Vibe Mutation (Integrations)</h3>
+                  <h3 class="text-xl font-serif text-white mb-4 glitch-hover inline-block max-w-full">3. Vibe Mutation (Integrations)</h3>
                   <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">When a third-party agent completes a complex refactor, it should summarize the changes via <code class="text-white">vibe-mutation</code> to store the memory in the hive mind.</p>
                   <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#ff1e56] border border-[#ff1e56]/20 overflow-x-auto relative z-10"><code>$ mairu-agent vibe-mutation "remember that we switched from REST to gRPC in the backend" -P my-project -y</code></pre>
                 </div>
