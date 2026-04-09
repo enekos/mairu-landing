@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { animate, stagger, inView } from 'motion';
-  import { Database, Network, TerminalSquare, Zap, Layers, Terminal, Search, Flame, BrainCircuit, Cpu, ArrowRight, Bot, GitMerge, Sparkles, Workflow, Hourglass, Share2 } from 'lucide-svelte';
+  import { Database, Network, TerminalSquare, Zap, Layers, Terminal, Search, Flame, BrainCircuit, Cpu, ArrowRight, Bot, GitMerge, Sparkles, Workflow, Hourglass, Share2, Monitor } from 'lucide-svelte';
 
   let showTerminal = false;
   let cursorVisible = true;
@@ -389,6 +389,15 @@
           <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Biological Decay</h3>
           <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
             Memories are not static. Unused vectors decay in relevance over time through exponential half-life algorithms, keeping the active context hyper-focused.
+          </p>
+        </div>
+
+        <div class="feature-card bg-[#110515] border border-white/5 p-10 rounded-2xl hover:border-[#3b00ff]/30 transition-all duration-500 group relative overflow-hidden">
+          <div class="absolute inset-0 bg-[#3b00ff]/5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
+          <Monitor class="text-[#3b00ff] mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Browser & Visual Context</h3>
+          <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
+            Give agents real-time browser awareness. A Native Messaging extension syncs DOM text, visual bounds, and errors, exposing remote execution hooks.
           </p>
         </div>
 
