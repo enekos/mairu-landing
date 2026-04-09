@@ -52,7 +52,7 @@
   });
 </script>
 
-<div class="min-h-screen bg-[#060205] text-[#e6e0d8] font-sans flex flex-col selection:bg-[#ff1e56] selection:text-white">
+<div class="min-h-screen bg-[#060205] text-[#e6e0d8] font-sans flex flex-col selection:bg-[#ff1e56] selection:text-white max-w-[100vw] overflow-x-hidden">
   
   <!-- Navigation -->
   <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-8 py-4 bg-[#060205]/60 backdrop-blur-xl border-b border-white/5">
@@ -127,7 +127,7 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 md:ml-72 p-8 lg:p-16 xl:px-24 max-w-5xl">
+    <main class="flex-1 md:ml-72 p-8 lg:p-16 xl:px-24 max-w-5xl w-full min-w-0">
       <div in:fade={{ duration: 600, delay: 100 }}>
         
         <div class="mb-16 border-b border-white/5 pb-12 relative overflow-hidden group">

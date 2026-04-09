@@ -196,7 +196,7 @@
   }
 </script>
 
-<div class="relative min-h-screen text-[#e6e0d8] overflow-hidden font-sans bg-[#060205]">
+<div class="relative min-h-screen text-[#e6e0d8] overflow-x-hidden font-sans bg-[#060205]">
   
   <!-- Dreamy Orb & Swarm Background -->
   <canvas bind:this={canvasRef} class="fixed inset-0 z-0 pointer-events-none mix-blend-screen opacity-50"></canvas>
@@ -209,7 +209,7 @@
   </div>
 
   <!-- Navigation -->
-  <nav class="relative z-20 flex justify-between items-center px-8 md:px-12 py-8 bg-transparent">
+  <nav class="relative z-20 flex justify-between items-center px-6 md:px-12 py-8 bg-transparent">
     <div class="flex items-center gap-3 group cursor-pointer">
       <div class="relative">
         <Database class="text-[#ff1e56] group-hover:scale-110 transition-transform duration-500" size={28} />
@@ -230,7 +230,7 @@
   </nav>
 
   <!-- Hero -->
-  <main class="relative z-10 max-w-7xl mx-auto px-8 md:px-12 pt-20 pb-40" bind:this={heroRef}>
+  <main class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-40" bind:this={heroRef}>
     <div class="flex flex-col lg:flex-row items-center justify-between gap-16">
       
       <!-- Left Text -->
@@ -239,7 +239,7 @@
           <Flame size={12} class="animate-pulse" aria-hidden="true" /> The Awakening
         </div>
         
-        <h1 class="text-6xl md:text-7xl lg:text-[6rem] font-serif leading-[0.95] text-white">
+        <h1 class="text-5xl md:text-7xl lg:text-[6rem] font-serif leading-[0.95] text-white break-words">
           {heroTitle} <br/>
           <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#ff1e56] to-[#3b00ff] fever-warp glitch-hover">{heroSubtitle}</span>
         </h1>
