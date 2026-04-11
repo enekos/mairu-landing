@@ -715,6 +715,29 @@ $ mairu-agent node search "authentication architecture" -k 5 -P my-project</code
 <span class="text-[#ff1e56]">></span> mairu-agent minion "Upgrade the database schema to support UUIDv7" --max-retries 3</code></pre>
               </div>
 
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-[#ff1e56]/30 transition-colors group relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#ff1e56]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h3 class="text-xl font-serif text-white mb-4 relative z-10">Council Mode</h3>
+                <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">
+                  Council Mode is a multi-agent architectural orchestration layer designed for complex development tasks. Mairu tasks are executed by a specialized council of autonomous roles (Product Lead, Expert, Test Evangelist). A Product Lead synthesizes reviews before execution, ensuring higher code quality and alignment.
+                </p>
+                <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10"><code><span class="text-[#8c7a85]"># Execute minion task under council supervision</span>
+<span class="text-[#ff1e56]">></span> mairu-agent minion "Refactor auth module" --council</code></pre>
+              </div>
+
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-[#3b00ff]/30 transition-colors group relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#3b00ff]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h3 class="text-xl font-serif text-white mb-4 relative z-10">Bash History Persistence</h3>
+                <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">
+                  Mairu persists and indexes your interactive shell sessions securely across time. It can semantically search through your past bash history and compute frequent command stats.
+                </p>
+                <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10"><code><span class="text-[#8c7a85]"># Semantically search past bash commands</span>
+<span class="text-[#ff1e56]">></span> mairu-agent history search "docker build" -n 5
+
+<span class="text-[#8c7a85]"># View your most frequently run commands</span>
+<span class="text-[#ff1e56]">></span> mairu-agent history stats</code></pre>
+              </div>
+
               <div class="bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-[#3b00ff]/30 transition-colors group relative overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-r from-[#3b00ff]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <h3 class="text-xl font-serif text-white mb-4 relative z-10">AI-Optimized Utilities</h3>

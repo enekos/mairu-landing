@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { animate, stagger, inView } from 'motion';
-  import { Database, Network, TerminalSquare, Zap, Layers, Terminal, Search, Flame, BrainCircuit, Cpu, ArrowRight, Bot, GitMerge, Sparkles, Workflow, Hourglass, Share2, Monitor } from 'lucide-svelte';
+  import { Database, Network, TerminalSquare, Zap, Layers, Terminal, Search, Flame, BrainCircuit, Cpu, ArrowRight, Bot, GitMerge, Sparkles, Workflow, Hourglass, Share2, Monitor, Users, History } from 'lucide-svelte';
 
   let showTerminal = false;
   let cursorVisible = true;
@@ -407,6 +407,24 @@
           <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Native Agent & Hive Mind</h3>
           <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
             Run Mairu as a standalone autonomous coding agent, or sync Aider, Claude, and Opencode simultaneously against its central Meilisearch knowledge graph.
+          </p>
+        </div>
+
+        <div class="feature-card bg-[#110515] border border-white/5 p-10 rounded-2xl hover:border-[#ff1e56]/30 transition-all duration-500 group relative overflow-hidden">
+          <div class="absolute inset-0 bg-[#ff1e56]/5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
+          <Users class="text-[#ff1e56] mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Council Mode</h3>
+          <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
+            Delegate complex tasks to an autonomous council of expert roles. A Product Lead synthesizes reviews before execution, ensuring quality and alignment.
+          </p>
+        </div>
+
+        <div class="feature-card bg-[#110515] border border-white/5 p-10 rounded-2xl hover:border-[#3b00ff]/30 transition-all duration-500 group relative overflow-hidden">
+          <div class="absolute inset-0 bg-[#3b00ff]/5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
+          <History class="text-[#3b00ff] mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Bash History Persistence</h3>
+          <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
+            Never lose context across sessions. Mairu automatically persists and indexes your CLI execution history, making past commands instantly searchable.
           </p>
         </div>
       </div>
