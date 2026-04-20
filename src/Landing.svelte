@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { animate, stagger, inView } from 'motion';
-  import { Database, Network, TerminalSquare, Zap, Layers, Terminal, Search, Flame, BrainCircuit, Cpu, ArrowRight, Bot, GitMerge, Sparkles, Workflow, Hourglass, Share2, Monitor, Users, History } from 'lucide-svelte';
+  import { Database, Network, TerminalSquare, Zap, Layers, Terminal, Search, Flame, BrainCircuit, Cpu, ArrowRight, Bot, GitMerge, Sparkles, Workflow, Hourglass, Share2, Monitor, Users, History, Code, Activity } from 'lucide-svelte';
 
   let showTerminal = false;
   let cursorVisible = true;
@@ -175,13 +175,13 @@
   });
 
   const terminalLines = [
-    { text: "> mairu-agent daemon ./src -P my-project", delay: 0 },
+    { text: "> mairu daemon ./src -P my-project", delay: 0 },
     { text: "[mairu-daemon] initializing context graph...", delay: 800 },
     { text: "[mairu-daemon] forging AST nodes into memory...", delay: 1500 },
     { text: "[mairu-daemon] megalith constructed. 124 nodes synchronized.", delay: 2500, success: true },
-    { text: "> mairu-agent vibe-mutation 'remember we use gRPC for internal services'", delay: 3500 },
+    { text: "> mairu vibe mutation 'remember we use gRPC for internal services' -P my-project", delay: 3500 },
     { text: "[SUCCESS] Memory forged in the cromlech.", delay: 4500, success: true },
-    { text: "> mairu-agent memory search 'authentication architecture'", delay: 6000 },
+    { text: "> mairu memory search 'authentication architecture' -P my-project", delay: 6000 },
     { text: "[FOUND] Vector + Full-Text match. Importance: 9.2", delay: 7000, highlight: true }
   ];
 
@@ -245,7 +245,7 @@
         </h1>
         
         <p class="text-lg text-[#8c7a85] max-w-xl leading-relaxed font-light">
-          Mairu is an autonomous coding agent backed by a dynamic memory engine. Use it as your primary developer, or inject its living, breathing digital cromlech into other tools.
+          Every time you start a new chat, your AI forgets everything. Mairu fixes that. It's a persistent memory layer for coding agents — hybrid search, automatic code understanding, and real-time shell integration that turns your entire development history into searchable context.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 pt-6">
@@ -253,7 +253,7 @@
             <span class="relative z-10 flex items-center gap-2">READ THE DOCS <ArrowRight size={16} class="group-hover:translate-x-1 transition-transform" aria-hidden="true" /></span>
           </a>
           <div class="px-8 py-4 border border-white/10 rounded-full text-[#8c7a85] tracking-widest text-sm flex items-center justify-center gap-2 bg-black/20 backdrop-blur-md font-mono select-all">
-            <span class="text-[#ff1e56] select-none">$</span> clone enekos/mairu
+            <span class="text-[#ff1e56] select-none">$</span> git clone github.com/enekos/mairu
           </div>
         </div>
       </div>
@@ -397,7 +397,7 @@
           <Monitor class="text-[#3b00ff] mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
           <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Browser & Visual Context</h3>
           <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
-            Give agents real-time browser awareness. A Native Messaging extension syncs DOM text, visual bounds, and errors, exposing remote execution hooks.
+            A Chrome extension with a Rust WASM core syncs browsing sessions via Native Messaging. Features SimHash deduplication and TF-IDF search over your recent page history.
           </p>
         </div>
 
@@ -427,6 +427,33 @@
             Never lose context across sessions. Mairu automatically persists and indexes your CLI execution history, making past commands instantly searchable.
           </p>
         </div>
+
+        <div class="feature-card bg-[#110515] border border-white/5 p-10 rounded-2xl hover:border-[#ff1e56]/30 transition-all duration-500 group relative overflow-hidden">
+          <div class="absolute inset-0 bg-[#ff1e56]/5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
+          <Code class="text-[#ff1e56] mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">AI-Optimized Dev Toolkit</h3>
+          <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
+            Token-budgeted file explorers, AST outlines, blast-radius analysis, safe env readers, and port killers — all designed specifically for LLM consumption with strict JSON output.
+          </p>
+        </div>
+
+        <div class="feature-card bg-[#110515] border border-white/5 p-10 rounded-2xl hover:border-white/30 transition-all duration-500 group relative overflow-hidden">
+          <div class="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
+          <Terminal class="text-white mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Real-Time Shell Integration</h3>
+          <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
+            Every command you run is automatically captured, redacted through a 5-layer secret-scrubbing pipeline, and made semantically searchable via <code class="text-white bg-white/10 px-1 rounded text-xs font-mono">mairu shell init</code>.
+          </p>
+        </div>
+
+        <div class="feature-card bg-[#110515] border border-[#3b00ff]/20 p-10 rounded-2xl hover:border-[#3b00ff] transition-all duration-500 group shadow-[0_0_20px_rgba(59,0,255,0.05)] hover:shadow-[0_0_40px_rgba(59,0,255,0.15)] relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-tr from-[#3b00ff]/10 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
+          <Cpu class="text-[#3b00ff] mb-6 group-hover:-translate-y-2 transition-transform duration-500 relative z-10" size={36} />
+          <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Local Embeddings</h3>
+          <p class="text-[#8c7a85] text-sm leading-relaxed font-light relative z-10 group-hover:text-white/80 transition-colors">
+            Run entirely offline with fastembed and ONNX Runtime. Generate 384-dim embeddings locally without sending code to external APIs — zero latency, zero API costs.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -444,7 +471,7 @@
           </h2>
         </div>
         <p class="text-[#8c7a85] text-lg font-light max-w-md pb-2">
-          Mairu actively resists context entropy. It provides agents with the native tools to self-manage, deduplicate, and traverse knowledge without hallucinations.
+          Mairu actively resists context entropy. Agents self-manage, deduplicate, analyze blast radius before editing, and traverse knowledge without hallucinations.
         </p>
       </div>
 
@@ -483,6 +510,16 @@
             Instead of grepping noisy strings, agents traverse the project conceptually via <code class="text-white bg-white/10 px-1 rounded text-xs font-mono">contextfs://</code> URIs. This allows them to zoom out to high-level architectural nodes, or zoom in to specific AST payloads seamlessly.
           </p>
         </div>
+
+        <!-- Strength 4 -->
+        <div class="cap-card bg-[#110515] border border-white/5 p-10 rounded-2xl relative overflow-hidden group hover:border-[#3b00ff]/30 transition-all duration-500">
+          <div class="absolute inset-0 bg-gradient-to-b from-[#3b00ff]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <Activity class="text-[#3b00ff] mb-6 relative z-10" size={32} />
+          <h3 class="text-xl font-serif text-white mb-4 glitch-hover inline-block max-w-full relative z-10">Proactive Code Analysis</h3>
+          <p class="text-[#8c7a85] font-light leading-relaxed relative z-10 group-hover:text-white/80 transition-colors">
+            Before touching a single line, agents run <code class="text-white bg-white/10 px-1 rounded text-xs font-mono">mairu analyze diff</code> to understand blast radius, or <code class="text-white bg-white/10 px-1 rounded text-xs font-mono">mairu analyze graph</code> to discover functional clusters and execution flows automatically.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -495,7 +532,7 @@
         Ready to command the <span class="italic text-[#ff1e56]">Cromlech?</span>
       </h2>
       <p class="text-[#8c7a85] text-lg mb-10 font-light">
-        Integrate Mairu directly into Claude or Opencode. Agents should proactively search memories and store important discoveries.
+        Integrate Mairu directly into Claude, Cursor, or Opencode. Agents proactively search memories, analyze code impact, and store discoveries — so nothing is ever lost between sessions.
       </p>
       <a href="#/docs" class="inline-flex px-10 py-4 bg-white text-black rounded-full font-bold tracking-widest text-sm hover:bg-[#ff1e56] hover:text-white transition-all duration-300">
         READ THE FULL DOCUMENTATION

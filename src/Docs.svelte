@@ -1,14 +1,16 @@
 <script lang="ts">
   import { fade, slide } from 'svelte/transition';
-  import { Database, Terminal, BookOpen, Layers, Network, Search, Zap, Flame, Braces, ArrowLeft, TerminalSquare, Hourglass, Settings, Command, Binary, Server, Workflow, Waypoints, Menu, X, Monitor, ShieldCheck, Cpu } from 'lucide-svelte';
+  import { Database, Terminal, BookOpen, Layers, Network, Search, Zap, Flame, Braces, ArrowLeft, TerminalSquare, Hourglass, Settings, Command, Binary, Server, Workflow, Waypoints, Menu, X, Monitor, ShieldCheck, Cpu, Code, GitBranch, BarChart3, Wrench } from 'lucide-svelte';
   import { onMount } from 'svelte';
 
   let activeSection = 'getting-started';
   let isMobileMenuOpen = false;
 
   const sections = [
+    { id: 'why-mairu', title: 'Why Mairu?', icon: Flame },
     { id: 'getting-started', title: 'Getting Started', icon: TerminalSquare },
     { id: 'configuration', title: 'Configuration & State', icon: Settings },
+    { id: 'local-embeddings', title: 'Local Embeddings', icon: Cpu },
     { id: 'internal-schema', title: 'Internal: Data Schema', icon: Server },
     { id: 'core-concepts', title: 'The Three Artifacts', icon: Database },
     { id: 'memory-lifecycle', title: 'Memory Lifecycle', icon: Hourglass },
@@ -19,10 +21,15 @@
     { id: 'interfaces', title: 'Interfaces: MCP, TUI & Bots', icon: Terminal },
     { id: 'scraping-ingestion', title: 'Web Scraping & Integrations', icon: BookOpen },
     { id: 'system-utilities', title: 'System & Docker Utilities', icon: Cpu },
+    { id: 'ai-dev-toolkit', title: 'AI-Optimized Dev Toolkit', icon: Code },
+    { id: 'shell-integration', title: 'Real-Time Shell Integration', icon: Wrench },
+    { id: 'git-helpers', title: 'Git Helpers', icon: GitBranch },
     { id: 'quality-guards', title: 'Quality Guards & Testing', icon: ShieldCheck },
     { id: 'internal-vibe', title: 'Internal: The Vibe Router', icon: Waypoints },
     { id: 'agent-integration', title: 'Native Agent & Integrations', icon: Zap },
     { id: 'advanced-cli', title: 'Advanced CLI Usage', icon: Command },
+    { id: 'eval-suite', title: 'Eval & Retrieval Suite', icon: BarChart3 },
+    { id: 'build-profiles', title: 'Build Profiles', icon: Cpu },
   ];
 
   function scrollToSection(id: string) {
@@ -141,6 +148,38 @@
         </div>
 
         <div class="space-y-32">
+
+          <!-- Why Mairu? -->
+          <section id="why-mairu" class="scroll-mt-32">
+            <h2 class="text-3xl font-serif text-white mb-6 flex items-center gap-4">
+              <Flame class="text-[#ff1e56]" size={28} /> Why Mairu?
+            </h2>
+
+            <div class="bg-[#110515] border border-[#ff1e56]/20 rounded-2xl p-8 mb-8 shadow-[0_0_30px_rgba(255,30,86,0.05)] relative overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-br from-[#ff1e56]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <p class="text-[#e6e0d8] leading-relaxed font-light mb-6 relative z-10">
+                <strong class="text-white">The Problem:</strong> Every time you open a new chat with an AI coding assistant, it forgets everything. Your codebase structure, architectural decisions, past debugging sessions, why you chose gRPC over REST — all gone. The agent has to re-discover context from scratch, burning tokens and time. This is <em>context entropy</em>, and it gets worse as projects grow.
+              </p>
+              <p class="text-[#e6e0d8] leading-relaxed font-light relative z-10">
+                <strong class="text-white">The Solution:</strong> Mairu is a persistent, searchable, self-maintaining memory layer that lives alongside your code. It hybrid-searches across vector embeddings and full-text, automatically parses your codebase into natural language, logs every terminal command you run, and lets agents query context proactively — so nothing is ever lost between sessions.
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="bg-[#0a030b] border border-white/5 rounded-xl p-6 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-lg">Persist Context</strong>
+                <p class="text-[#8c7a85] text-sm font-light">Store architectural decisions, debugging solutions, and project conventions as searchable memories that survive across chat sessions.</p>
+              </div>
+              <div class="bg-[#0a030b] border border-white/5 rounded-xl p-6 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-lg">Automate Understanding</strong>
+                <p class="text-[#8c7a85] text-sm font-light">The AST daemon silently watches your codebase and translates code into natural language summaries — no expensive LLM calls required.</p>
+              </div>
+              <div class="bg-[#0a030b] border border-white/5 rounded-xl p-6 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-lg">Never Repeat Yourself</strong>
+                <p class="text-[#8c7a85] text-sm font-light">Every shell command is logged, redacted, and indexed. Search semantically: "that docker command that failed yesterday" and find it instantly.</p>
+              </div>
+            </div>
+          </section>
           
           <!-- Getting Started -->
           <section id="getting-started" class="scroll-mt-32">
@@ -149,26 +188,63 @@
             </h2>
             
             <p class="mb-8 leading-relaxed text-[#e6e0d8] font-light">
-              Mairu runs as a Go binary with an embedded Svelte 5 dashboard. It relies on a Meilisearch instance for hybrid vector/full-text search and Gemini for generating dense vector embeddings.
+              Mairu is a Go binary with an embedded Svelte 5 dashboard. It requires a Meilisearch instance for hybrid search and either a Kimi/Gemini API key or local ONNX Runtime for embeddings.
             </p>
 
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-[#ff1e56]/5 border border-[#ff1e56]/20 rounded-xl p-6 mb-8 flex gap-4 items-start">
+              <Cpu class="text-[#ff1e56] shrink-0 fever-warp" size={24} />
+              <div>
+                <h4 class="text-white font-medium mb-2 text-sm">Prerequisites</h4>
+                <ul class="text-[#8c7a85] text-sm font-light list-disc list-inside space-y-1">
+                  <li><strong class="text-white">Go 1.25+</strong> — for building the binary</li>
+                  <li><strong class="text-white">Bun 1+</strong> — for the dashboard UI (optional)</li>
+                  <li><strong class="text-white">Docker</strong> — optional; bootstrap script can fetch local Meilisearch instead</li>
+                  <li><strong class="text-white">Kimi API key</strong> — or ONNX Runtime for local fastembed embeddings</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="space-y-6">
               <div class="bg-[#0a030b] border border-white/5 rounded-xl p-6 shadow-lg relative overflow-hidden group">
                 <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <h3 class="text-white font-medium mb-4 text-sm font-mono relative z-10">1. Setup & Init</h3>
-                <pre class="text-[#ff1e56] text-xs font-mono overflow-x-auto relative z-10"><code>$ ./bootstrap.sh          # fetch meilisearch (no docker)
-$ make build              # compile mairu-agent
-$ ./mairu/bin/mairu-agent setup     # setup indexes
-$ ./mairu/bin/mairu-agent init      # init project config</code></pre>
+                <h3 class="text-white font-medium mb-4 text-sm font-mono relative z-10">Step 1: Clone & Bootstrap</h3>
+                <pre class="text-[#ff1e56] text-xs font-mono overflow-x-auto relative z-10"><code>$ git clone https://github.com/enekos/mairu.git
+$ cd mairu
+$ ./bootstrap.sh          # fetches local Meilisearch (no Docker needed)</code></pre>
               </div>
 
               <div class="bg-[#0a030b] border border-white/5 rounded-xl p-6 shadow-lg relative overflow-hidden group">
                 <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <h3 class="text-white font-medium mb-4 text-sm font-mono relative z-10">2. Configure & Run</h3>
-                <pre class="text-[#ff1e56] text-xs font-mono overflow-x-auto relative z-10"><code>$ ./mairu/bin/mairu-agent config set api.gemini_api_key "your-key"
-$ ./mairu/bin/mairu-agent context-server -p 8788
-# App running at localhost:8788</code></pre>
+                <h3 class="text-white font-medium mb-4 text-sm font-mono relative z-10">Step 2: Build</h3>
+                <pre class="text-[#ff1e56] text-xs font-mono overflow-x-auto relative z-10"><code>$ make mairu-build        # compiles to ./mairu/bin/mairu</code></pre>
               </div>
+
+              <div class="bg-[#0a030b] border border-white/5 rounded-xl p-6 shadow-lg relative overflow-hidden group">
+                <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h3 class="text-white font-medium mb-4 text-sm font-mono relative z-10">Step 3: Configure</h3>
+                <pre class="text-[#ff1e56] text-xs font-mono overflow-x-auto relative z-10"><code>$ ./mairu/bin/mairu config set api.kimi_api_key "your-key"
+$ ./mairu/bin/mairu setup         # creates Meilisearch indexes
+$ ./mairu/bin/mairu init --defaults   # creates .mairu.toml in current project</code></pre>
+              </div>
+
+              <div class="bg-[#0a030b] border border-white/5 rounded-xl p-6 shadow-lg relative overflow-hidden group">
+                <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h3 class="text-white font-medium mb-4 text-sm font-mono relative z-10">Step 4: Verify</h3>
+                <pre class="text-[#ff1e56] text-xs font-mono overflow-x-auto relative z-10"><code>$ ./mairu/bin/mairu doctor        # checks connectivity and configuration</code></pre>
+              </div>
+
+              <div class="bg-[#0a030b] border border-white/5 rounded-xl p-6 shadow-lg relative overflow-hidden group">
+                <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h3 class="text-white font-medium mb-4 text-sm font-mono relative z-10">Step 5: Run</h3>
+                <pre class="text-[#ff1e56] text-xs font-mono overflow-x-auto relative z-10"><code>$ ./mairu/bin/mairu tui           # interactive terminal UI
+$ ./mairu/bin/mairu web -p 8080   # web interface
+$ ./mairu/bin/mairu context-server -p 8788   # centralized API server</code></pre>
+              </div>
+            </div>
+
+            <div class="mt-8 bg-[#3b00ff]/5 border border-[#3b00ff]/20 rounded p-4 flex gap-3">
+              <Binary class="text-[#3b00ff] shrink-0" />
+              <p class="text-xs text-[#e6e0d8] font-light"><strong class="text-white">Pro tip:</strong> Add <code class="text-white font-mono bg-white/10 px-1 rounded">./mairu/bin</code> to your <code class="text-white font-mono bg-white/10 px-1 rounded">PATH</code> or symlink <code class="text-white font-mono bg-white/10 px-1 rounded">mairu</code> to a directory already in PATH (e.g. <code class="text-white font-mono bg-white/10 px-1 rounded">/usr/local/bin</code>) so you can run it from anywhere.</p>
             </div>
           </section>
 
@@ -193,13 +269,13 @@ $ ./mairu/bin/mairu-agent context-server -p 8788
                 <li><strong class="text-white">CLI flags:</strong> Highest priority.</li>
               </ul>
               <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10 mt-4"><code><span class="text-[#8c7a85]"># View your current resolved config cascade</span>
-<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu-agent config list
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu config list
 
 <span class="text-[#8c7a85]"># Set global values easily</span>
-<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu-agent config set api.gemini_api_key "your-key"
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu config set api.gemini_api_key "your-key"
 
 <span class="text-[#8c7a85]"># Check system health and missing dependencies</span>
-<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu-agent doctor</code></pre>
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu doctor</code></pre>
             </div>
 
             <div class="bg-[#0a030b] border border-white/5 rounded-xl p-8 shadow-lg relative overflow-hidden">
@@ -207,11 +283,50 @@ $ ./mairu/bin/mairu-agent context-server -p 8788
               <h3 class="text-xl font-serif text-white mb-4 relative z-10 glitch-hover inline-block max-w-full">Project Isolation (.mairu.toml)</h3>
               <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">
                 While Meilisearch holds all data globally, Mairu isolates contexts using the <code class="text-white">-P &lt;project&gt;</code> flag. 
-                You can drop a <code class="text-white">.mairu.toml</code> in your project root using <code class="text-white">mairu-agent init</code> to override settings like output formats.
+                You can drop a <code class="text-white">.mairu.toml</code> in your project root using <code class="text-white">mairu init</code> to override settings like output formats.
               </p>
               <div class="bg-[#3b00ff]/5 border border-[#3b00ff]/20 rounded p-4 flex gap-3 relative z-10">
                 <Binary class="text-[#3b00ff] shrink-0" />
                 <p class="text-xs text-[#e6e0d8] font-light">Make sure to add <code class="text-white font-mono bg-white/10 px-1 rounded">.mairu</code> and <code class="text-white font-mono bg-white/10 px-1 rounded">.mairu.toml</code> to your <code class="text-white font-mono bg-white/10 px-1 rounded">.gitignore</code> file.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Local Embeddings -->
+          <section id="local-embeddings" class="scroll-mt-32">
+            <h2 class="text-3xl font-serif text-white mb-6 flex items-center gap-4">
+              <Cpu class="text-[#3b00ff]" size={28} /> Local Embeddings
+            </h2>
+            
+            <p class="mb-8 leading-relaxed text-[#e6e0d8] font-light">
+              By default, Mairu uses remote APIs (Kimi/Gemini) for generating dense vector embeddings. However, you can run entirely offline using <strong class="text-white">fastembed</strong> and ONNX Runtime — zero API calls, zero latency, full privacy.
+            </p>
+
+            <div class="bg-[#110515] border border-white/5 rounded-xl p-8 mb-6 shadow-lg relative overflow-hidden group">
+              <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <h3 class="text-xl font-serif text-white mb-4 relative z-10">Setup fastembed</h3>
+              <ol class="text-[#8c7a85] text-sm font-light mb-4 relative z-10 list-decimal list-inside space-y-2">
+                <li>Install <strong class="text-white">ONNX Runtime</strong> on your system.</li>
+                <li>Set the embedding provider to <code class="bg-black/50 px-1 rounded font-mono">fastembed</code> in your config.</li>
+                <li>On first run, the model downloads automatically.</li>
+              </ol>
+              <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10 mt-4"><code><span class="text-[#8c7a85]"># Set provider to local embeddings</span>
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu config set embedding.provider "fastembed"
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu config set embedding.model "fast-all-MiniLM-L6-v2"
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu config set embedding.dimensions 384
+
+<span class="text-[#8c7a85]"># Verify it's working</span>
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu doctor</code></pre>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">Privacy-First</strong>
+                <p class="text-[#8c7a85] text-sm font-light">Your codebase never leaves your machine. Embeddings are generated locally with no external API calls.</p>
+              </div>
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">Cost-Free</strong>
+                <p class="text-[#8c7a85] text-sm font-light">No API key required. No rate limits. No per-token costs. Scale to millions of embeddings for free.</p>
               </div>
             </div>
           </section>
@@ -366,6 +481,31 @@ $ ./mairu/bin/mairu-agent context-server -p 8788
                  </div>
               </div>
             </div>
+
+            <div class="mt-8 bg-[#110515] rounded-2xl border border-white/5 overflow-hidden group">
+              <div class="p-8 relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h3 class="text-xl font-serif text-white mb-6 border-b border-white/5 pb-4 relative z-10 glitch-hover inline-block max-w-full">Search Enhancements</h3>
+                <div class="grid md:grid-cols-2 gap-6 relative z-10">
+                  <div>
+                    <strong class="text-white block mb-1 text-sm">Synonyms</strong>
+                    <p class="text-[#8c7a85] text-sm font-light">Custom synonym expansion (e.g. "k8s" → "kubernetes") via the <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">SYNONYMS</code> environment variable.</p>
+                  </div>
+                  <div>
+                    <strong class="text-white block mb-1 text-sm">Highlights</strong>
+                    <p class="text-[#8c7a85] text-sm font-light">Returns <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">&lt;mark&gt;</code>-tagged snippets showing matched terms. Enable with <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">--highlight</code>.</p>
+                  </div>
+                  <div>
+                    <strong class="text-white block mb-1 text-sm">Field Boosts</strong>
+                    <p class="text-[#8c7a85] text-sm font-light">Per-search field weight overrides via the API <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">fieldBoosts</code> option.</p>
+                  </div>
+                  <div>
+                    <strong class="text-white block mb-1 text-sm">Min Score Cutoff</strong>
+                    <p class="text-[#8c7a85] text-sm font-light">Hard threshold to drop low-confidence results using <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">--minScore</code>.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
           <!-- AST Daemon -->
@@ -380,7 +520,7 @@ $ ./mairu/bin/mairu-agent context-server -p 8788
 
             <div class="bg-[#0a030b] border border-white/5 p-6 rounded-xl mb-8 font-mono">
               <pre class="text-[#ff1e56] text-xs overflow-x-auto"><code># Run the watcher in the background for a specific project
-$ mairu-agent daemon ./src -P my-project</code></pre>
+$ mairu daemon ./src -P my-project</code></pre>
             </div>
 
             <div class="mb-8 p-6 bg-[#110515] border border-white/5 rounded-xl border-l-2 border-l-[#3b00ff] relative overflow-hidden group">
@@ -422,7 +562,7 @@ $ mairu-agent daemon ./src -P my-project</code></pre>
               
               <div class="bg-black/40 p-4 rounded font-mono text-xs border border-white/5">
                 <span class="text-[#8c7a85]"># The agent lists the root</span><br/>
-                <span class="text-[#ff1e56]">></span> mairu-agent node ls "contextfs://my-project" -P my-project<br/>
+                <span class="text-[#ff1e56]">></span> mairu node ls "contextfs://my-project" -P my-project<br/>
                 <br/>
                 <span class="text-white">[NODE] contextfs://my-project/backend</span><br/>
                 <span class="text-white">[NODE] contextfs://my-project/frontend</span><br/>
@@ -462,6 +602,19 @@ $ mairu-agent daemon ./src -P my-project</code></pre>
                 <p class="text-[#8c7a85] text-sm font-light">Exposes native hooks (click, fill, highlight, scroll, navigate) allowing an autonomous agent to manipulate the active browser tab.</p>
               </div>
             </div>
+
+            <div class="mt-8 bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-white/20 transition-colors">
+              <h3 class="text-xl font-serif text-white mb-4">WASM Core Architecture</h3>
+              <p class="text-[#8c7a85] text-sm font-light mb-4">
+                The browser extension is powered by a Rust WASM core that runs inside the Chrome service worker:
+              </p>
+              <ul class="text-[#8c7a85] text-sm font-light list-disc list-inside space-y-2">
+                <li><strong class="text-white">DOM Extraction:</strong> Rust <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">scraper</code> crate filters noise (nav/footers/ads), extracts markdown tables, blockquotes, code blocks, and chunks text.</li>
+                <li><strong class="text-white">SimHash Deduplication:</strong> Maintains a rolling session queue (50 pages) and hashes pages via SimHash, rejecting duplicate SPA states via Hamming distance comparison.</li>
+                <li><strong class="text-white">TF-IDF Search:</strong> Lightweight in-memory index over session memory lets agents query recent browsing: "what was that rust config flag?"</li>
+                <li><strong class="text-white">Native Messaging Bridge:</strong> Rust binary bridges Chrome Extension to Go runtime via local HTTP on <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">127.0.0.1:7081</code>.</li>
+              </ul>
+            </div>
           </section>
 
           <!-- Interfaces -->
@@ -478,22 +631,48 @@ $ mairu-agent daemon ./src -P my-project</code></pre>
               <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/20 transition-colors">
                 <strong class="text-white block mb-2 font-serif text-xl">Model Context Protocol (MCP)</strong>
                 <p class="text-[#8c7a85] text-sm font-light mb-4">Run Mairu as an MCP server to natively connect its context engine to Claude Desktop or cursor.</p>
-                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono w-full block border border-white/5">> mairu-agent mcp</code>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono w-full block border border-white/5">> mairu mcp</code>
               </div>
               <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/20 transition-colors">
                 <strong class="text-white block mb-2 font-serif text-xl">Terminal UI (TUI)</strong>
                 <p class="text-[#8c7a85] text-sm font-light mb-4">A rich, interactive terminal application built natively in Go for distraction-free memory management.</p>
-                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono w-full block border border-white/5">> mairu-agent tui</code>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono w-full block border border-white/5">> mairu tui</code>
               </div>
               <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/20 transition-colors">
                 <strong class="text-white block mb-2 font-serif text-xl">Web Dashboard</strong>
                 <p class="text-[#8c7a85] text-sm font-light mb-4">Launch the unified Svelte 5 dashboard to visualize context trees and search memories visually.</p>
-                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono w-full block border border-white/5">> mairu-agent web</code>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono w-full block border border-white/5">> mairu web</code>
               </div>
               <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/20 transition-colors">
                 <strong class="text-white block mb-2 font-serif text-xl">Telegram Bot</strong>
                 <p class="text-[#8c7a85] text-sm font-light mb-4">Access your Mairu swarm remotely from your phone through a persistent Telegram conversational interface.</p>
-                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono w-full block border border-white/5">> mairu-agent telegram</code>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono w-full block border border-white/5">> mairu telegram</code>
+              </div>
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">UTCP Server</strong>
+                <p class="text-[#8c7a85] text-sm font-light mb-4">Start a UTCP server over HTTP for custom agent integrations and remote context access.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono w-full block border border-white/5">> mairu utcp -p 8081</code>
+              </div>
+            </div>
+
+            <div class="mt-8 bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-white/20 transition-colors">
+              <h3 class="text-xl font-serif text-white mb-4">Editor Integrations</h3>
+              <p class="text-[#8c7a85] text-sm font-light mb-4">
+                Mairu integrates directly into your editor workflow through the <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">integrations/</code> directory:
+              </p>
+              <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-black/40 p-3 rounded border border-white/5">
+                  <strong class="text-white text-sm block mb-1">Neovim</strong>
+                  <p class="text-[#8c7a85] text-xs font-light">Lua plugin for in-editor context search and memory storage.</p>
+                </div>
+                <div class="bg-black/40 p-3 rounded border border-white/5">
+                  <strong class="text-white text-sm block mb-1">Raycast</strong>
+                  <p class="text-[#8c7a85] text-xs font-light">React/TypeScript extension for macOS quick commands.</p>
+                </div>
+                <div class="bg-black/40 p-3 rounded border border-white/5">
+                  <strong class="text-white text-sm block mb-1">Zed</strong>
+                  <p class="text-[#8c7a85] text-xs font-light">Rust/MCP extension connecting Zed's agent to Mairu context.</p>
+                </div>
               </div>
             </div>
           </section>
@@ -512,8 +691,8 @@ $ mairu-agent daemon ./src -P my-project</code></pre>
               <div class="bg-[#0a030b] border border-white/5 rounded-xl p-8 hover:border-white/20 transition-colors">
                 <h3 class="text-xl font-serif text-white mb-4">External APIs & Issue Trackers</h3>
                 <p class="text-[#8c7a85] text-sm font-light mb-4">Sync issues from Github or Linear directly into the Mairu Context Nodes. Agents can automatically reference issue requirements without leaving the terminal.</p>
-                <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto"><code><span class="text-[#ff1e56]">></span> mairu-agent github sync-issues -P my-project
-<span class="text-[#ff1e56]">></span> mairu-agent linear sync-issues -P my-project</code></pre>
+                <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto"><code><span class="text-[#ff1e56]">></span> mairu github sync-issues -P my-project
+<span class="text-[#ff1e56]">></span> mairu linear sync-issues -P my-project</code></pre>
               </div>
 
               <div class="bg-[#0a030b] border border-white/5 rounded-xl p-8 hover:border-[#ff1e56]/30 transition-colors">
@@ -522,10 +701,10 @@ $ mairu-agent daemon ./src -P my-project</code></pre>
                   The <code class="text-white">mairu scrape</code> command provides a massive toolkit for crawling domains, extracting structured schemas via LLM (<code class="text-white">smart</code>), aggregating data concurrently (<code class="text-white">omni</code>), or pulling remote pages directly into your local context graph.
                 </p>
                 <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto"><code><span class="text-[#8c7a85]"># Crawl a domain up to depth 2 and extract structured data</span>
-<span class="text-[#ff1e56]">></span> mairu-agent scrape depth https://docs.example.com --depth 2
+<span class="text-[#ff1e56]">></span> mairu scrape depth https://docs.example.com --depth 2
 
 <span class="text-[#8c7a85]"># Fetch a URL, summarize it, and save it as a Context Node</span>
-<span class="text-[#ff1e56]">></span> mairu-agent scrape web https://example.com -P my-project</code></pre>
+<span class="text-[#ff1e56]">></span> mairu scrape web https://example.com -P my-project</code></pre>
               </div>
             </div>
           </section>
@@ -546,9 +725,9 @@ $ mairu-agent daemon ./src -P my-project</code></pre>
                 <strong class="text-[#3b00ff] block mb-2 font-serif text-xl relative z-10">Docker Context</strong>
                 <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">Provides clean JSON arrays of running containers, tail-budgeted logs without noisy timestamps, and formatted resource utilization.</p>
                 <div class="space-y-2 relative z-10 font-mono text-xs text-white bg-black/40 p-3 rounded">
-                  <div>> mairu-agent docker ps</div>
-                  <div>> mairu-agent docker logs &lt;id&gt;</div>
-                  <div>> mairu-agent docker stats</div>
+                  <div>> mairu docker ps</div>
+                  <div>> mairu docker logs &lt;id&gt;</div>
+                  <div>> mairu docker stats</div>
                 </div>
               </div>
 
@@ -557,10 +736,168 @@ $ mairu-agent daemon ./src -P my-project</code></pre>
                 <strong class="text-[#3b00ff] block mb-2 font-serif text-xl relative z-10">System Snapshots</strong>
                 <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">Safe environment variables dump (redacting secrets), process tracking, and system health queries formulated as clean JSON.</p>
                 <div class="space-y-2 relative z-10 font-mono text-xs text-white bg-black/40 p-3 rounded">
-                  <div>> mairu-agent sys</div>
-                  <div>> mairu-agent env</div>
-                  <div>> mairu-agent proc</div>
+                  <div>> mairu sys</div>
+                  <div>> mairu env</div>
+                  <div>> mairu proc</div>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- AI-Optimized Dev Toolkit -->
+          <section id="ai-dev-toolkit" class="scroll-mt-32">
+            <h2 class="text-3xl font-serif text-white mb-6 flex items-center gap-4">
+              <Code class="text-[#ff1e56]" size={28} /> AI-Optimized Dev Toolkit
+            </h2>
+            
+            <p class="mb-8 leading-relaxed text-[#e6e0d8] font-light">
+              Mairu includes a comprehensive suite of CLI tools specifically designed for LLM consumption. Every command outputs strict, token-efficient JSON to prevent context window blowouts.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-6 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-lg">mairu scan</strong>
+                <p class="text-[#8c7a85] text-sm font-light mb-3">Token-budgeted regex search with context lines. Prevents dumping entire files into the context window.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5">mairu scan "func main" ./src -e .go -n 10</code>
+              </div>
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-6 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-lg">mairu outline</strong>
+                <p class="text-[#8c7a85] text-sm font-light mb-3">AST-based file skeleton. Emits imports, classes, functions, and interfaces as structured JSON.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5">mairu outline main.go --tree --full</code>
+              </div>
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-6 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-lg">mairu peek</strong>
+                <p class="text-[#8c7a85] text-sm font-light mb-3">Smart bracket-aware symbol extraction. No more fragile <code class="text-white">sed</code>/<code class="text-white">head</code> pipelines.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5">mairu peek main.go -l 10-20 -s MyStruct</code>
+              </div>
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-6 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-lg">mairu map</strong>
+                <p class="text-[#8c7a85] text-sm font-light mb-3">Fast, <code class="text-white">.gitignore</code>-aware, token-counted directory tree for codebase exploration.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5">mairu map ./src -d 3 --sort size</code>
+              </div>
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-6 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-lg">mairu impact</strong>
+                <p class="text-[#8c7a85] text-sm font-light mb-3">Analyze blast radius and reverse dependencies for any symbol or context node.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5">mairu impact contextfs://node/my-project/auth.go -P my-project</code>
+              </div>
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-6 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-lg">mairu splice</strong>
+                <p class="text-[#8c7a85] text-sm font-light mb-3">AST-aware symbol replacement. Safely replace functions across files without breaking syntax.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5">mairu splice main.go -t oldFunc -r new.go</code>
+              </div>
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-6 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-lg">mairu distill</strong>
+                <p class="text-[#8c7a85] text-sm font-light mb-3">Run any command and capture only stack traces and errors — perfect for debugging pipelines.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5">mairu distill go test ./...</code>
+              </div>
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-6 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-lg">mairu dev kill-port</strong>
+                <p class="text-[#8c7a85] text-sm font-light mb-3">Safely terminate runaway web servers on specific ports.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5">mairu dev kill-port 3000</code>
+              </div>
+            </div>
+
+            <div class="mt-8 bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-white/20 transition-colors">
+              <h3 class="text-xl font-serif text-white mb-4">Additional Utilities</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">mairu info [dir]</code>
+                  <p class="text-[#8c7a85] text-sm font-light">Repository analytics: token sizes, file counts, extensions.</p>
+                </div>
+                <div>
+                  <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">mairu env [file] -r</code>
+                  <p class="text-[#8c7a85] text-sm font-light">Smart env reader. Extracts keys, flags secrets, reveals safe values.</p>
+                </div>
+                <div>
+                  <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">mairu proc ports</code>
+                  <p class="text-[#8c7a85] text-sm font-light">List active ports and processes consuming them.</p>
+                </div>
+                <div>
+                  <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">mairu proc top</code>
+                  <p class="text-[#8c7a85] text-sm font-light">Highest CPU and memory processes, formatted for LLMs.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Real-Time Shell Integration -->
+          <section id="shell-integration" class="scroll-mt-32">
+            <h2 class="text-3xl font-serif text-white mb-6 flex items-center gap-4">
+              <Wrench class="text-[#3b00ff]" size={28} /> Real-Time Shell Integration
+            </h2>
+            
+            <p class="mb-8 leading-relaxed text-[#e6e0d8] font-light">
+              Mairu can capture every command you run in your terminal, automatically redact secrets, and make your entire shell history semantically searchable. This happens transparently via a small daemon and shell hooks.
+            </p>
+
+            <div class="bg-[#110515] border border-white/5 rounded-xl p-8 mb-6 shadow-lg relative overflow-hidden group">
+              <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <h3 class="text-xl font-serif text-white mb-4 relative z-10">Setup Shell Hooks</h3>
+              <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">Add one line to your shell rc file. Mairu supports zsh, bash, and fish natively.</p>
+              <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10"><code><span class="text-[#8c7a85]"># zsh (~/.zshrc)</span>
+<span class="text-[#ff1e56]">></span> eval "$(mairu shell init zsh)"
+
+<span class="text-[#8c7a85]"># bash (~/.bashrc)</span>
+<span class="text-[#ff1e56]">></span> eval "$(mairu shell init bash)"
+
+<span class="text-[#8c7a85]"># fish (~/.config/fish/config.fish)</span>
+<span class="text-[#ff1e56]">></span> mairu shell init fish | source</code></pre>
+            </div>
+
+            <div class="bg-[#110515] border border-white/5 rounded-xl p-8 mb-6 shadow-lg relative overflow-hidden group">
+              <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <h3 class="text-xl font-serif text-white mb-4 relative z-10">Start the Ingest Daemon</h3>
+              <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">Run once per session, or configure as a systemd/launchd service.</p>
+              <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10"><code><span class="text-[#ff1e56]">></span> mairu ingestd run &</code></pre>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-[#ff1e56]/30 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">5-Layer Redaction</strong>
+                <p class="text-[#8c7a85] text-sm font-light">Every command is scrubbed through 5 layers before storage: known-token regex, arg/flag heuristics, entropy analysis, credential-handling tool denylist, and damage capping. Entries exceeding the damage cap are dropped entirely.</p>
+              </div>
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-[#ff1e56]/30 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">Opt-In Capture</strong>
+                <p class="text-[#8c7a85] text-sm font-light">For commands where you want stdout/stderr remembered, prefix with <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">mairu capture</code>. Streams live to terminal while buffering a copy for search.</p>
+              </div>
+            </div>
+
+            <div class="bg-[#0a030b] border border-white/5 rounded-xl p-8">
+              <h3 class="text-xl font-serif text-white mb-4">Search Your History</h3>
+              <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto"><code><span class="text-[#8c7a85]"># Semantically search past commands</span>
+<span class="text-[#ff1e56]">></span> mairu history search "docker build failed"
+
+<span class="text-[#8c7a85]"># Most frequently run commands</span>
+<span class="text-[#ff1e56]">></span> mairu history stats
+
+<span class="text-[#8c7a85]"># Import existing shell history (zsh or bash)</span>
+<span class="text-[#ff1e56]">></span> mairu history import --from ~/.zsh_history --project my-project
+
+<span class="text-[#8c7a85]"># Apply reinforcement learning feedback</span>
+<span class="text-[#ff1e56]">></span> mairu history feedback &lt;id&gt; -r 10</code></pre>
+            </div>
+          </section>
+
+          <!-- Git Helpers -->
+          <section id="git-helpers" class="scroll-mt-32">
+            <h2 class="text-3xl font-serif text-white mb-6 flex items-center gap-4">
+              <GitBranch class="text-white" size={28} /> Git Helpers
+            </h2>
+            
+            <p class="mb-6 leading-relaxed text-[#e6e0d8] font-light">
+              Mairu provides AI-optimized Git commands that emit clean, token-efficient summaries designed for LLM consumption.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">mairu git summary</strong>
+                <p class="text-[#8c7a85] text-sm font-light mb-4">Produces a token-dense, strictly parsed git status and history summary. Perfect for giving agents context on current changes.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5">mairu git summary</code>
+              </div>
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">mairu git ingest</strong>
+                <p class="text-[#8c7a85] text-sm font-light mb-4">Ingests git commit history into context nodes, making past architectural decisions and change rationales searchable.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5">mairu git ingest -P my-project</code>
               </div>
             </div>
           </section>
@@ -647,7 +984,7 @@ $ mairu-agent daemon ./src -P my-project</code></pre>
                   <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/5 rounded-full blur-[40px] pointer-events-none group-hover:bg-white/10 transition-colors"></div>
                   <h3 class="text-xl font-serif text-white mb-4 glitch-hover inline-block max-w-full">1. The Native Mairu Agent</h3>
                   <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">Use Mairu as your primary developer. It natively leverages the AST daemon and memory graph to autonomously write code, fix bugs, and refactor architecture without needing any CLI wrappers.</p>
-                  <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#ff1e56] border border-white/5 overflow-x-auto relative z-10"><code>$ mairu-agent task "Implement a new dark mode toggle in the header" -P my-project</code></pre>
+                  <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#ff1e56] border border-white/5 overflow-x-auto relative z-10"><code>$ mairu task "Implement a new dark mode toggle in the header" -P my-project</code></pre>
                 </div>
               </div>
 
@@ -657,8 +994,8 @@ $ mairu-agent daemon ./src -P my-project</code></pre>
                   <div class="absolute -right-10 -top-10 w-40 h-40 bg-[#ff1e56]/10 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#ff1e56]/20 transition-colors"></div>
                   <h3 class="text-xl font-serif text-white mb-4 glitch-hover inline-block max-w-full">2. Deterministic Retrieval (Integrations)</h3>
                   <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">When using third-party agents, instruct them to proactively search memories whenever they start a new task or encounter an unknown domain using the CLI.</p>
-                  <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#ff1e56] border border-white/5 overflow-x-auto relative z-10"><code>$ mairu-agent memory search "authentication token validation rules" -k 5 -P my-project
-$ mairu-agent node search "authentication architecture" -k 5 -P my-project</code></pre>
+                  <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#ff1e56] border border-white/5 overflow-x-auto relative z-10"><code>$ mairu memory search "authentication token validation rules" -k 5 -P my-project
+$ mairu node search "authentication architecture" -k 5 -P my-project</code></pre>
                 </div>
               </div>
 
@@ -668,7 +1005,7 @@ $ mairu-agent node search "authentication architecture" -k 5 -P my-project</code
                   <div class="absolute -right-10 -top-10 w-40 h-40 bg-[#3b00ff]/10 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#3b00ff]/20 transition-colors"></div>
                   <h3 class="text-xl font-serif text-white mb-4 glitch-hover inline-block max-w-full">3. Vibe Mutation (Integrations)</h3>
                   <p class="text-[#8c7a85] text-sm font-light mb-4 relative z-10">When a third-party agent completes a complex refactor, it should summarize the changes via <code class="text-white">vibe-mutation</code> to store the memory in the hive mind.</p>
-                  <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#ff1e56] border border-[#ff1e56]/20 overflow-x-auto relative z-10"><code>$ mairu-agent vibe-mutation "remember that we switched from REST to gRPC in the backend" -P my-project -y</code></pre>
+                  <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#ff1e56] border border-[#ff1e56]/20 overflow-x-auto relative z-10"><code>$ mairu vibe-mutation "remember that we switched from REST to gRPC in the backend" -P my-project -y</code></pre>
                 </div>
               </div>
 
@@ -693,7 +1030,7 @@ $ mairu-agent node search "authentication architecture" -k 5 -P my-project</code
                 <p class="text-[#8c7a85] text-sm font-light mb-4">
                   If the agent doesn't know what to search for deterministically, it can use <code class="text-white">vibe-query</code>. Mairu will use an LLM to generate multiple search queries, aggregate vector and AST node results, and return a synthesized response.
                 </p>
-                <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto"><code><span class="text-[#ff1e56]">></span> mairu-agent vibe-query "how are user sessions validated?" -P my-project</code></pre>
+                <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto"><code><span class="text-[#ff1e56]">></span> mairu vibe-query "how are user sessions validated?" -P my-project</code></pre>
               </div>
 
               <div class="bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-white/20 transition-colors">
@@ -702,7 +1039,7 @@ $ mairu-agent node search "authentication architecture" -k 5 -P my-project</code
                   When dealing with a swarm of agents (e.g. Claude Code doing architecture, Aider doing implementation), you can filter memories by the entity that created them.
                 </p>
                 <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto"><code><span class="text-[#8c7a85]"># Search only for bug_fix memories stored by the aider agent</span>
-<span class="text-[#ff1e56]">></span> mairu-agent memory search "database lock" -c bug_fix -o aider -P my-project</code></pre>
+<span class="text-[#ff1e56]">></span> mairu memory search "database lock" -c bug_fix -o aider -P my-project</code></pre>
               </div>
 
               <div class="bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-[#ff1e56]/30 transition-colors group relative overflow-hidden">
@@ -712,7 +1049,7 @@ $ mairu-agent node search "authentication architecture" -k 5 -P my-project</code
                   Minion mode executes tasks completely unattended. It automatically approves shell commands, runs verification checks, attempts to self-heal failing tests/linters, and opens a Pull Request. Ideal for background CI/CD pipelines.
                 </p>
                 <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10"><code><span class="text-[#8c7a85]"># Execute task, auto-fix issues up to 3 times, and create PR</span>
-<span class="text-[#ff1e56]">></span> mairu-agent minion "Upgrade the database schema to support UUIDv7" --max-retries 3</code></pre>
+<span class="text-[#ff1e56]">></span> mairu minion "Upgrade the database schema to support UUIDv7" --max-retries 3</code></pre>
               </div>
 
               <div class="bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-[#ff1e56]/30 transition-colors group relative overflow-hidden">
@@ -722,7 +1059,7 @@ $ mairu-agent node search "authentication architecture" -k 5 -P my-project</code
                   Council Mode is a multi-agent architectural orchestration layer designed for complex development tasks. Mairu tasks are executed by a specialized council of autonomous roles (Product Lead, Expert, Test Evangelist). A Product Lead synthesizes reviews before execution, ensuring higher code quality and alignment.
                 </p>
                 <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10"><code><span class="text-[#8c7a85]"># Execute minion task under council supervision</span>
-<span class="text-[#ff1e56]">></span> mairu-agent minion "Refactor auth module" --council</code></pre>
+<span class="text-[#ff1e56]">></span> mairu minion "Refactor auth module" --council</code></pre>
               </div>
 
               <div class="bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-[#3b00ff]/30 transition-colors group relative overflow-hidden">
@@ -732,10 +1069,10 @@ $ mairu-agent node search "authentication architecture" -k 5 -P my-project</code
                   Mairu persists and indexes your interactive shell sessions securely across time. It can semantically search through your past bash history and compute frequent command stats.
                 </p>
                 <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10"><code><span class="text-[#8c7a85]"># Semantically search past bash commands</span>
-<span class="text-[#ff1e56]">></span> mairu-agent history search "docker build" -n 5
+<span class="text-[#ff1e56]">></span> mairu history search "docker build" -n 5
 
 <span class="text-[#8c7a85]"># View your most frequently run commands</span>
-<span class="text-[#ff1e56]">></span> mairu-agent history stats</code></pre>
+<span class="text-[#ff1e56]">></span> mairu history stats</code></pre>
               </div>
 
               <div class="bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-[#3b00ff]/30 transition-colors group relative overflow-hidden">
@@ -770,12 +1107,93 @@ $ mairu-agent node search "authentication architecture" -k 5 -P my-project</code
                   CLI outputs are structured natively for both human readability and script automation. You can output search and list commands in different formats.
                 </p>
                 <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto"><code><span class="text-[#8c7a85]"># Output search results as strict JSON for a script</span>
-<span class="text-[#ff1e56]">></span> mairu-agent memory search "api keys" -o json -P my-project
+<span class="text-[#ff1e56]">></span> mairu memory search "api keys" -o json -P my-project
 
 <span class="text-[#8c7a85]"># Output plain text (no colors/tables)</span>
-<span class="text-[#ff1e56]">></span> mairu-agent memory search "api keys" -o plain -P my-project</code></pre>
+<span class="text-[#ff1e56]">></span> mairu memory search "api keys" -o plain -P my-project</code></pre>
               </div>
 
+              <div class="bg-[#110515] border border-white/5 rounded-xl p-8 hover:border-white/20 transition-colors">
+                <h3 class="text-xl font-serif text-white mb-4">Shell Completion</h3>
+                <p class="text-[#8c7a85] text-sm font-light mb-4">
+                  Generate tab-completion scripts for bash, zsh, fish, or PowerShell.
+                </p>
+                <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto"><code><span class="text-[#8c7a85]"># Bash</span>
+<span class="text-[#ff1e56]">></span> mairu completion bash > /etc/bash_completion.d/mairu
+
+<span class="text-[#8c7a85]"># Zsh</span>
+<span class="text-[#ff1e56]">></span> mairu completion zsh > "${fpath[1]}/_mairu"
+
+<span class="text-[#8c7a85]"># Fish</span>
+<span class="text-[#ff1e56]">></span> mairu completion fish > ~/.config/fish/completions/mairu.fish</code></pre>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Eval & Retrieval Suite -->
+          <section id="eval-suite" class="scroll-mt-32">
+            <h2 class="text-3xl font-serif text-white mb-6 flex items-center gap-4">
+              <BarChart3 class="text-[#3b00ff]" size={28} /> Eval & Retrieval Suite
+            </h2>
+            
+            <p class="mb-8 leading-relaxed text-[#e6e0d8] font-light">
+              Mairu includes a built-in retrieval evaluation harness to measure and improve search quality over time. Use it to benchmark your hybrid retrieval pipeline against real-world queries.
+            </p>
+
+            <div class="bg-[#110515] border border-white/5 rounded-xl p-8 mb-6 shadow-lg relative overflow-hidden group">
+              <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <h3 class="text-xl font-serif text-white mb-4 relative z-10">Run Evaluation</h3>
+              <pre class="bg-black/50 p-4 rounded-lg font-mono text-xs text-[#8c7a85] border border-white/5 overflow-x-auto relative z-10"><code><span class="text-[#8c7a85]"># Evaluate against a sample dataset</span>
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu eval:retrieval --dataset ./llmeval/sample_dataset.json --topK 5 --verbose
+
+<span class="text-[#8c7a85]"># Fail if quality drops below thresholds</span>
+<span class="text-[#ff1e56]">></span> ./mairu/bin/mairu eval:retrieval --dataset ./llmeval/sample_dataset.json --topK 5 --fail-below-mrr 0.8 --fail-below-recall 0.75</code></pre>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">MRR & Recall</strong>
+                <p class="text-[#8c7a85] text-sm font-light">Measures Mean Reciprocal Rank and recall@K to ensure your retrieval pipeline returns relevant results at the top.</p>
+              </div>
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/20 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">CI Integration</strong>
+                <p class="text-[#8c7a85] text-sm font-light">Use <code class="text-white font-mono text-xs bg-white/5 px-1 rounded">--fail-below-*</code> flags to gate deployments on retrieval quality. Add to your CI pipeline to catch regressions.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Build Profiles -->
+          <section id="build-profiles" class="scroll-mt-32">
+            <h2 class="text-3xl font-serif text-white mb-6 flex items-center gap-4">
+              <Cpu class="text-[#ff1e56]" size={28} /> Build Profiles
+            </h2>
+            
+            <p class="mb-8 leading-relaxed text-[#e6e0d8] font-light">
+              Mairu supports multiple build profiles to match your deployment constraints. Choose the right binary for your environment.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-[#ff1e56]/30 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">Full</strong>
+                <p class="text-[#8c7a85] text-sm font-light">Everything included: TUI, Web UI, Telegram, MCP, context server. Default build.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5 mt-3">make mairu-build</code>
+              </div>
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-white/30 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">Slim</strong>
+                <p class="text-[#8c7a85] text-sm font-light">No TUI, Web UI, Telegram, or MCP. Just the core agent, context server, and CLI toolkit.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5 mt-3">make mairu-build-slim</code>
+              </div>
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-[#3b00ff]/30 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">Headless</strong>
+                <p class="text-[#8c7a85] text-sm font-light">No TUI or Web UI. Includes Telegram and MCP for server deployments.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5 mt-3">make mairu-build-headless</code>
+              </div>
+              <div class="bg-[#110515] p-6 rounded-xl border border-white/5 hover:border-[#3b00ff]/30 transition-colors">
+                <strong class="text-white block mb-2 font-serif text-xl">Context-Server-Only</strong>
+                <p class="text-[#8c7a85] text-sm font-light">Minimal binary with just the REST API. Ideal for microservice deployments.</p>
+                <code class="text-[#ff1e56] bg-black/50 px-2 py-1 rounded text-xs font-mono block border border-white/5 mt-3">make mairu-build-contextsrv</code>
+              </div>
             </div>
           </section>
 
