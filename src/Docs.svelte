@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade, slide } from 'svelte/transition';
-  import { Database, Terminal, BookOpen, Layers, Network, Search, Zap, Flame, Braces, ArrowLeft, TerminalSquare, Hourglass, Settings, Command, Binary, Server, Workflow, Waypoints, Menu, X, Monitor, ShieldCheck, Cpu, Code, GitBranch, BarChart3, Wrench } from 'lucide-svelte';
+  import { Database, Terminal, BookOpen, Layers, Network, Search, Zap, Flame, Braces, ArrowLeft, TerminalSquare, Hourglass, Settings, Command, Binary, Server, Workflow, Waypoints, Menu, X, Monitor, ShieldCheck, Cpu, Code, GitBranch, ChartColumn, Wrench } from 'lucide-svelte';
   import { onMount } from 'svelte';
 
   let activeSection = 'getting-started';
@@ -28,7 +28,7 @@
     { id: 'internal-vibe', title: 'Internal: The Vibe Router', icon: Waypoints },
     { id: 'agent-integration', title: 'Native Agent & Integrations', icon: Zap },
     { id: 'advanced-cli', title: 'Advanced CLI Usage', icon: Command },
-    { id: 'eval-suite', title: 'Eval & Retrieval Suite', icon: BarChart3 },
+    { id: 'eval-suite', title: 'Eval & Retrieval Suite', icon: ChartColumn },
     { id: 'build-profiles', title: 'Build Profiles', icon: Cpu },
   ];
 
@@ -1134,7 +1134,7 @@ $ mairu node search "authentication architecture" -k 5 -P my-project</code></pre
           <!-- Eval & Retrieval Suite -->
           <section id="eval-suite" class="scroll-mt-32">
             <h2 class="text-3xl font-serif text-white mb-6 flex items-center gap-4">
-              <BarChart3 class="text-[#3b00ff]" size={28} /> Eval & Retrieval Suite
+              <ChartColumn class="text-[#3b00ff]" size={28} /> Eval & Retrieval Suite
             </h2>
             
             <p class="mb-8 leading-relaxed text-[#e6e0d8] font-light">
