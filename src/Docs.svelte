@@ -1122,7 +1122,7 @@ $ mairu node search "authentication architecture" -k 5 -P my-project</code></pre
 <span class="text-[#ff1e56]">></span> mairu completion bash > /etc/bash_completion.d/mairu
 
 <span class="text-[#8c7a85]"># Zsh</span>
-<span class="text-[#ff1e56]">></span> mairu completion zsh > "${fpath[1]}/_mairu"
+<span class="text-[#ff1e56]">></span> mairu completion zsh > "{'${fpath[1]}/_mairu'}"
 
 <span class="text-[#8c7a85]"># Fish</span>
 <span class="text-[#ff1e56]">></span> mairu completion fish > ~/.config/fish/completions/mairu.fish</code></pre>
